@@ -1,0 +1,17 @@
+FROM node:alpine
+LABEL MAINTAINER="zhangjianghong"
+
+# 设置容器启动后的默认运行目录
+RUN mkdir -p /home/app
+WORKDIR /home/app
+
+# 运行命令，安装依赖
+COPY package*.json ./
+# RUN 命令可以有多个，但是可以用 && 连接多个命令来减少层级。
+RUN npm install
+# 复制代码
+COPY . .
+EXPOSE 8080
+# 启动后端服务
+CMD ["npm", "start"]
+# COPY ./nodestart.sh /
